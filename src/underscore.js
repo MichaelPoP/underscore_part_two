@@ -12,13 +12,16 @@ var myFunctions = {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   extend: function(obj) {
-    var object = {};
-    if (obj == null || "object" != typeof obj) return obj;
-    function () {
-       
+    var args = Array.prototype.slice.apply(arguments);
+    for (var i = 1; i < args.length; i++){
+      var hash = args[i];
+      for (var key in hash) {
+        obj[key] = hash[key];
+      }
     }
-
-
+     return obj;
+    // var object = {};
+    // if (obj == null || "object" != typeof obj) return obj;
   },
 
   // Return a function that can be called at most one time. Subsequent calls
@@ -51,7 +54,7 @@ var myFunctions = {
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   delay: function(func, wait) {
-    var args = slice.call(arguments, 2);
+    var args = Array.prototype.slice.call(arguments, 2);
     return setTimeout(function(){
       return func.apply(null, args);
     }, wait);

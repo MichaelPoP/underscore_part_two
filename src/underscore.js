@@ -55,12 +55,20 @@ var myFunctions = {
   // call someFunction('a', 'b') after 500ms
   delay: function(func, wait) {
     var args = Array.prototype.slice.call(arguments, 2);
-    return setTimeout(function(){
+    setTimeout(function(){
       return func.apply(null, args);
     }, wait);
   
   },
-
+     //ALTERNATE SOLUTION USING APPLY INSTEAD
+     //===================================
+  // delay: function(func, wait) {
+  //   var args = Array.prototype.slice.apply(arguments, [2]);
+  //   setTimeout(function(){
+  //     return func.apply(this, args);
+  //   }, wait);
+  // },
+     //====================================
   // Memoize an expensive function by storing its results. You may assume
   // that the function takes only one argument and that it is a primitive.
   //

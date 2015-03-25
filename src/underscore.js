@@ -12,6 +12,12 @@ var myFunctions = {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   extend: function(obj) {
+    var object = {};
+    if (obj == null || "object" != typeof obj) return obj;
+    function () {
+       
+    }
+
 
   },
 
@@ -19,20 +25,22 @@ var myFunctions = {
   // should return the previously returned value.
 
   once: function(func) {
-
-  var alreadyCalled = false;
-  var result;
-
+    var alreadyCalled = false;
+    var result;
+    
   // TIP: We'll return a new function that delegates to the old one, but only
   // if it hasn't been called before.
-  return function() {
-
+    return function() {
+      if(alreadyCalled === false) {
+        result = func.apply(result, func);
+        alreadyCalled = true;
+      }
     // TIP: .apply(this, arguments) is the standard way to pass on all of the
     // information from one function call to another.
 
     // The new function always returns the originally computed result.
-
-   };
+      return result;
+    };
 
   },
 
@@ -43,7 +51,11 @@ var myFunctions = {
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   delay: function(func, wait) {
-
+    var args = slice.call(arguments, 2);
+    return setTimeout(function(){
+      return func.apply(null, args);
+    }, wait);
+  
   },
 
   // Memoize an expensive function by storing its results. You may assume
